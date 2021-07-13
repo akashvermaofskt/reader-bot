@@ -67,17 +67,23 @@ async def on_ready():
     # sent_message = await channel.send(file=discord.File("static/icon.jpeg"))
     # await sent_message.add_reaction("⭐")
 
-    today = date.today().strftime("%d/%m/%Y")
-    await channel.send("###")
-    await channel.send(f"""`{today}`""")
-    await channel.send("###")
-    offset_index = get_offset_index()
     files = get_all_ss_to_post()
-    for idx, file_name in enumerate(files):
-        await channel.send(f"Page no. {offset_index+idx}")
-        sent_message = await channel.send(file=discord.File(dir_name + "/" + file_name))
-        await sent_message.add_reaction("⭐")
-        await channel.send("---------------")
+    if len(files) != 0:
+        print("Posting Begins!")
+        today = date.today().strftime("%d/%m/%Y")
+        await channel.send("###")
+        await channel.send(f"""`{today}`""")
+        await channel.send("###")
+        offset_index = get_offset_index()
+        for idx, file_name in enumerate(files):
+            await channel.send(f"Page no. {offset_index+idx}")
+            sent_message = await channel.send(
+                file=discord.File(dir_name + "/" + file_name)
+            )
+            await sent_message.add_reaction("⭐")
+            await channel.send("---------------")
+    else:
+        print("Nothing to post")
 
 
 client.run(TOKEN)
