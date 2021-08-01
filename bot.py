@@ -1,15 +1,32 @@
 import os
 import time
-from datetime import date
+from datetime import date, datetime
+from dateutil import parser
 
 import discord
 from dotenv import load_dotenv
+from localStoragePy import localStoragePy
+
+localStorage = localStoragePy("reader_bot", "json")
+current_time = datetime.now()
+last_run = parser.parse(localStorage.getItem("last_run"))
+seconds_passed_since_last_run = (current_time - last_run).total_seconds()
+print("\n\n######")
+print(f"Time now: {str(current_time)}")
+print(f"Last Ran: {str(last_run)}")
+print(f"Seconds passed since last run: {seconds_passed_since_last_run}")
+
+if seconds_passed_since_last_run < 86400:
+    print("24 hours didn't pass, quiting!")
+    quit()
+else:
+    print("STARTING BOT!")
 
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
 GUILD = os.getenv("DISCORD_SERVER")
 READING_CHANNEL_ID = int(os.getenv("DISCORD_READING_CHANNEL"))
-POSTED = True
+POSTED = False
 
 client = discord.Client()
 dir_name = "Books/Drive/PENDING"
@@ -93,6 +110,7 @@ async def on_ready():
     else:
         print("Nothing to post")
 
+    localStorage.setItem("last_run", str(datetime.now()))
     print("All Done, quiting!")
     quit()
 
