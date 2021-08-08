@@ -48,4 +48,5 @@ if __name__ == "__main__":
     BOOK_START_PAGE = int(os.getenv("BOOK_START_PAGE"))
     READING_SPEED_WPM = int(os.getenv("READING_SPEED_WPM"))
     READING_TIME_IN_MINS = int(os.getenv("READING_TIME_IN_MINS"))
-    get_page_groups(BOOK_NAME, BOOK_START_PAGE, READING_SPEED_WPM, READING_TIME_IN_MINS)
+    # get_page_groups(BOOK_NAME, BOOK_START_PAGE, READING_SPEED_WPM, READING_TIME_IN_MINS)
+    pdf_to_images(BOOK_NAME, BOOK_START_PAGE)

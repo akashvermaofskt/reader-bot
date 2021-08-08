@@ -106,7 +106,8 @@ def get_all_ss_to_post_page_group_based():
 @client.event
 async def on_ready():
     if MASTER_FLAG is False:
-        raise "Master Flag is False, quiting!"
+        print("Master Flag is False, quiting!")
+        quit()
 
     channel = client.get_channel(READING_CHANNEL_ID)
     ss_dir_name = f"Books/{BOOK_NAME}/PENDING"
@@ -132,12 +133,13 @@ async def on_ready():
                 ss_dir_name + "/" + file_name, f"Books/{BOOK_NAME}/DONE/" + file_name
             )
             print(f"Moved {file_name}")
-        await channel.send("@Reader")
+        await channel.send("<@&863534266843660288>")
     else:
         print("Nothing to post")
 
     localStorage.setItem("last_run", str(datetime.now()))
-    raise "All Done, quiting!"
+    print("All Done, quiting!")
+    quit()
 
 
 def main():
@@ -145,7 +147,8 @@ def main():
     if bot_run_pending:
         client.run(TOKEN)
     else:
-        raise "Bot not supposed to run"
+        print("Bot not supposed to run")
+        quit()
 
 
 if __name__ == "__main__":
