@@ -5,3 +5,4 @@ Books
 dump
 .DS_Store
 reader_bot_env
+__pycache__
