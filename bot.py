@@ -1,6 +1,6 @@
 import os
 import time
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from dateutil import parser
 
 import discord
@@ -137,7 +137,7 @@ async def on_ready():
     else:
         print("Nothing to post")
 
-    localStorage.setItem("last_run", str(datetime.now()))
+    localStorage.setItem("last_run", parser.parse(localStorage.getItem("last_run")) + timedelta(days=1))
     print("All Done, quiting!")
     quit()
 
@@ -145,6 +145,7 @@ async def on_ready():
 def main():
     bot_run_pending = ensure_run()
     if bot_run_pending:
+        print("BOT ran!")
         client.run(TOKEN)
     else:
         print("Bot not supposed to run")
